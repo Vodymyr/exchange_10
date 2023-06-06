@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Currency Exchange Calculator</title>
+</head>
+<body>
+    <h1>Currency Exchange Calculator</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="currency_a">Currency A:</label>
+        <select name="currency_a" id="currency_a">
+            {% for currency in currencies %}
+                <option value="{{ currency.code }}">{{ currency.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="currency_b">Currency B:</label>
+        <select name="currency_b" id="currency_b">
+            {% for currency in currencies %}
+                <option value="{{ currency.code }}">{{ currency.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="amount">Amount:</label>
+        <input type="number" name="amount" id="amount" step="0.01">
+        <br>
+        <input type="submit" value="Calculate">
+    </form>
+
+    {% if result %}
+        <h2>Result:</h2>
+        <p>{{ amount }} {{ currency_a.code }} = {{ result }} {{ currency_b.code }}</p>
+    {% endif %}
+</body>
+</html>
